@@ -82,7 +82,7 @@
 html,
 body {
   max-width: 100vw;
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 body {
@@ -98,6 +98,15 @@ body {
 a {
   color: inherit;
   text-decoration: none;
+}
+
+.message{
+  background-color: gray;
+  padding: 12px;
+  border-radius: 12px;
+  margin-block: 5px;
+  width: fit-content;
+  color: white;
 }
 
 @media (prefers-color-scheme: dark) {
