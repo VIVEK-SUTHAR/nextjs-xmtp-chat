@@ -1,11 +1,10 @@
 import { getPreviewMessage } from "@/utils/getPreviewMessage";
-import type { Conversation } from "@xmtp/xmtp-js";
 import React from "react";
 import MessageCard from "./MessageCard";
 
 type AllConversationProps = {
-  messages: Conversation[];
-  setSelectedChat: React.Dispatch<React.SetStateAction<Conversation>>;
+  messages: any;
+  setSelectedChat: React.Dispatch<React.SetStateAction<any>>;
 };
 
 function AllConversations({ messages, setSelectedChat }: AllConversationProps) {
