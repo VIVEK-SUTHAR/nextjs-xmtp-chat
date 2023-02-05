@@ -26,6 +26,7 @@ function Home() {
   const [isNewMessage, setIsNewMessage] = useState<boolean>(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [messageText, setMessageText] = useState("");
+  const [isValidAddress, setIsValidAddress] = useState(false);
   const { sendMessage } = SendMessage(selectedChat);
   const toast = useToast();
   const resetAll = () => {
@@ -59,6 +60,7 @@ function Home() {
         });
       } else {
         setSelectedChat(newAddress);
+        setIsValidAddress(true);
         setErrorMessage("");
       }
     }
@@ -77,7 +79,6 @@ function Home() {
           justifyContent={"center"}
           alignItems="center"
           height={"container.sm"}
-
         >
           <Loader name="wallet" />
           <br />
@@ -140,11 +141,12 @@ function Home() {
                   isNewMessage={isNewMessage}
                   onInputBlur={onInputBlur}
                   errorMessage={errorMessage}
-                  selectedChat={selectedChat}
+                    selectedChat={selectedChat}
+                    isValid={isValidAddress}
                 />
               </Box>
               <Box
-                maxH={"xl"}
+                maxH={["container.md","container.lg"]}
                 overflowY={"scroll"}
                 overflowX={"hidden"}
                 padding={4}

@@ -7,6 +7,7 @@ type AddressInputProps = {
   onInputBlur: (newAddress: string) => Promise<void>;
   errorMessage: string;
   selectedChat: string;
+  isValid: boolean;
 };
 
 const AddressInput = ({
@@ -14,27 +15,33 @@ const AddressInput = ({
   onInputBlur,
   errorMessage,
   selectedChat,
+  isValid,
 }: AddressInputProps) => {
   const [newAddress, setNewAddress] = useState("");
   return (
     <Flex flexDirection={"column"} flex={isNewMessage ? 1 : 0}>
       {isNewMessage ? (
-        <HStack p={4}>
-          <Avatar src="https://avatars.dicebear.com/api/human/120.svg" />
-          <Input
-            value={newAddress}
-            onBlur={(e) => {
-              e.preventDefault();
-              onInputBlur(newAddress);
-            }}
-            onChange={(e) => {
-              e.preventDefault();
-              setNewAddress(e.target.value);
-            }}
-            placeholder="Enter Wallet Address"
-          />
-          <br />
-        </HStack>
+        <>
+          <HStack p={4}>
+            <Avatar src="https://avatars.dicebear.com/api/human/120.svg" />
+            <Input
+              value={newAddress}
+              onBlur={(e) => {
+                e.preventDefault();
+                onInputBlur(newAddress);
+              }}
+              onChange={(e) => {
+                e.preventDefault();
+                setNewAddress(e.target.value);
+              }}
+              placeholder="Enter Wallet Address"
+            />
+            <br />
+          </HStack>
+          {isValid && (
+            <Text>Chatting with : {shortenAddress(selectedChat)}</Text>
+          )}
+        </>
       ) : (
         <Text>Chatting with : {shortenAddress(selectedChat)}</Text>
       )}

@@ -19,7 +19,7 @@ const MessageList = ({
   StreamMessages(selectedConvo);
   const { walletAddress } = useContext(WalletContext);
   return (
-    <VStack minH={"container.md"}>
+    <VStack minH={"72"} maxH={"80"}>
       {!isNewMsg &&
         convoMessages?.map((msg: DecodedMessage) => {
           return (

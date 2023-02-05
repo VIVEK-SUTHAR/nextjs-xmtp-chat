@@ -1,5 +1,5 @@
 import React from "react";
-import { Button, HStack, Input, useToast } from "@chakra-ui/react";
+import { Button, FormControl, HStack, Input, useToast } from "@chakra-ui/react";
 
 type ComposerProps = {
   msgText: string;
@@ -17,33 +17,40 @@ const Composer = ({
   const toast = useToast();
   return (
     <HStack>
-      <Input
-        onChange={(e) => {
-          e.preventDefault();
-          setMsgTxt(e.target.value);
-        }}
-        placeholder="Write a message"
+     
+        <Input
+          onChange={(e) => {
+            e.preventDefault();
+            setMsgTxt(e.target.value);
+          }}
+          placeholder="Write a message"
         value={msgText}
-      />
-      <Button
-        className="btn"
-        onClick={() => {
-          if (errorMessage || !msgText) {
-            toast({
-              position: "top",
-              title: errorMessage ? errorMessage : "Please type something",
-              status: "error",
-              colorScheme: "red",
-              duration: 2000,
-            });
-            return;
+        onKeyUp={e => {
+          if (e.key === "Enter") {
+            sendNewMessage()
           }
-
-          sendNewMessage();
         }}
-      >
-        Send
-      </Button>
+        />
+        <Button
+          type="submit"
+          className="btn"
+          onClick={() => {
+            if (errorMessage || !msgText) {
+              toast({
+                position: "top",
+                title: errorMessage ? errorMessage : "Please type something",
+                status: "error",
+                colorScheme: "red",
+                duration: 2000,
+              });
+              return;
+            }
+
+            sendNewMessage();
+          }}
+        >
+          Send
+        </Button>
     </HStack>
   );
 };
