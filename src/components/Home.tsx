@@ -1,7 +1,15 @@
 import { WalletContext } from "@/context/WalletContext";
 import { XMTPContext } from "@/context/XmtpContext";
 import SendMessage from "@/utils/sendMessage";
-import { Box, Button, HStack, Spinner, Text, VStack } from "@chakra-ui/react";
+import {
+  Box,
+  Button,
+  HStack,
+  Spinner,
+  Text,
+  useToast,
+  VStack,
+} from "@chakra-ui/react";
 import React, { useContext, useState } from "react";
 import AddressInput from "./AddressInput";
 import AllConversations from "./AllConversations";
@@ -19,6 +27,7 @@ function Home() {
   const [errorMessage, setErrorMessage] = useState("");
   const [messageText, setMessageText] = useState("");
   const { sendMessage } = SendMessage(selectedChat);
+  const toast = useToast();
   const resetAll = () => {
     setSelectedChat(null);
     setIsNewMessage(false);
@@ -32,10 +41,22 @@ function Home() {
     };
     if (!newAddress?.startsWith("0x") || newAddress?.length !== 42) {
       setErrorMessage("Invalid address");
+      toast({
+        position: "top",
+        status: "error",
+        title: "Please enter valid address",
+        duration: 2000,
+      });
     } else {
       const isOnNetwork = await canMessage(newAddress);
       if (!isOnNetwork) {
-        setErrorMessage("Address not on XMTP network");
+        setErrorMessage("not on xmtp");
+        toast({
+          position: "top",
+          status: "error",
+          title: "Address not on XMTP network",
+          duration: 2000,
+        });
       } else {
         setSelectedChat(newAddress);
         setErrorMessage("");
@@ -44,8 +65,6 @@ function Home() {
   };
 
   const sendNewMessage = () => {
-    console.log("s");
-    
     sendMessage(messageText);
     setMessageText("");
   };
@@ -58,6 +77,7 @@ function Home() {
           justifyContent={"center"}
           alignItems="center"
           height={"container.sm"}
+
         >
           <Loader name="wallet" />
           <br />
@@ -125,10 +145,10 @@ function Home() {
               </Box>
               <Box
                 maxH={"xl"}
-                borderColor="gray.900"
-                borderWidth={1}
                 overflowY={"scroll"}
+                overflowX={"hidden"}
                 padding={4}
+                className="AllMessage"
               >
                 <MessageList
                   convoMessages={allConvoMessages.get(selectedChat) ?? []}
@@ -137,6 +157,7 @@ function Home() {
                 />
               </Box>
               <Composer
+                errorMessage={errorMessage}
                 msgText={messageText}
                 sendNewMessage={sendNewMessage}
                 setMsgTxt={setMessageText}

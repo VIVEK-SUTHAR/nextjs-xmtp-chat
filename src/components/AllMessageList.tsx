@@ -1,5 +1,6 @@
 import { WalletContext } from "@/context/WalletContext";
 import StreamMessages from "@/utils/streamMessages";
+import { Box, VStack } from "@chakra-ui/react";
 import type { DecodedMessage } from "@xmtp/xmtp-js";
 import React, { useContext} from "react";
 import OneMessage from "./OneMessage";
@@ -18,8 +19,7 @@ const MessageList = ({
   StreamMessages(selectedConvo);
   const { walletAddress } = useContext(WalletContext);
   return (
-    <div className="msgs-container flex flex-dir-col">
-      <div className="mt-auto">
+    <VStack>
         {!isNewMsg &&
           convoMessages?.map((msg: DecodedMessage) => {
             return (
@@ -30,8 +30,7 @@ const MessageList = ({
               />
             );
           })}
-      </div>
-    </div>
+    </VStack>
   );
 };
 

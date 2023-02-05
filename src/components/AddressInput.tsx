@@ -1,4 +1,5 @@
-import { Avatar, Box, HStack, Input, Text } from "@chakra-ui/react";
+import shortenAddress from "@/utils/shortAddress";
+import { Avatar, Box, Flex, HStack, Input, Text } from "@chakra-ui/react";
 import React, { useState } from "react";
 
 type AddressInputProps = {
@@ -16,7 +17,7 @@ const AddressInput = ({
 }: AddressInputProps) => {
   const [newAddress, setNewAddress] = useState("");
   return (
-    <div className={`flex flex-dir-col ${isNewMessage ? "flex-1" : ""}`}>
+    <Flex flexDirection={"column"} flex={isNewMessage ? 1 : 0}>
       {isNewMessage ? (
         <HStack p={4}>
           <Avatar src="https://avatars.dicebear.com/api/human/120.svg" />
@@ -33,12 +34,11 @@ const AddressInput = ({
             placeholder="Enter Wallet Address"
           />
           <br />
-          {errorMessage && <Text color={"red.200"}>{errorMessage}</Text>}
         </HStack>
       ) : (
-        <Text>Chatting with : {selectedChat}</Text>
+        <Text>Chatting with : {shortenAddress(selectedChat)}</Text>
       )}
-    </div>
+    </Flex>
   );
 };
 

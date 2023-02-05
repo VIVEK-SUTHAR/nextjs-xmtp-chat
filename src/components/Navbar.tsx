@@ -1,6 +1,7 @@
 import { WalletContext } from "@/context/WalletContext";
 import { XMTPContext } from "@/context/XmtpContext";
-import { Box, Button, HStack, Text } from "@chakra-ui/react";
+import shortenAddress from "@/utils/shortAddress";
+import { Box, Button, Flex, HStack, Text } from "@chakra-ui/react";
 import React, { useContext } from "react";
 
 function Navbar() {
@@ -12,17 +13,15 @@ function Navbar() {
   } = useContext(WalletContext);
   const [providerState] = useContext(XMTPContext);
   const { client, allConversations } = providerState;
-  console.log(allConversations);
-
   return (
     <Box maxW={"container.lg"} margin="0 auto" py={4}>
-      <HStack justifyContent={"space-between"}>
+      <HStack justifyContent={"space-between"} px={[2,4,2]}>
         <Box>
           <Text fontSize={"2xl"}>BlockChat</Text>
         </Box>
-        <Box>
+        <Box >
           {walletAddress ? (
-            <div className="flex align-center header-mobile">
+            <Flex>
               {!client && (
                 <Button
                   className="btn"
@@ -33,13 +32,13 @@ function Navbar() {
               )}
               {client && (
                 <HStack>
-                  <Text>{walletAddress}</Text>
+                  <Text>{shortenAddress(walletAddress)}</Text>
                   <Button onClick={() => disConnecetWallet()}>
                     Disconnect
                   </Button>
                 </HStack>
               )}
-            </div>
+            </Flex>
           ) : (
             <Button variant={"outline"} className="btn" onClick={connectWallet}>
               Connect Wallet
