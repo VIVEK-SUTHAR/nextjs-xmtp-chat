@@ -1,4 +1,4 @@
-const { truncate } = require('fs/promises');
+const { truncate } = require("fs/promises");
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
@@ -10,7 +10,7 @@ const nextConfig = {
     return config;
   },
   typescript: {
-    ignoreBuildErrors:truncate,
+    ignoreBuildErrors: true,
   },
   eslint: {
     ignoreDuringBuilds: true,
