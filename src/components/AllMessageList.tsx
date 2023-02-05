@@ -2,7 +2,7 @@ import { WalletContext } from "@/context/WalletContext";
 import StreamMessages from "@/utils/streamMessages";
 import { Box, VStack } from "@chakra-ui/react";
 import type { DecodedMessage } from "@xmtp/xmtp-js";
-import React, { useContext} from "react";
+import React, { useContext } from "react";
 import OneMessage from "./OneMessage";
 
 type MessageListProps = {
@@ -19,17 +19,27 @@ const MessageList = ({
   StreamMessages(selectedConvo);
   const { walletAddress } = useContext(WalletContext);
   return (
-    <VStack>
-        {!isNewMsg &&
-          convoMessages?.map((msg: DecodedMessage) => {
-            return (
-              <OneMessage
-                msg={msg}
-                key={msg.id}
-                position={msg.senderAddress === walletAddress}
-              />
-            );
-          })}
+    <VStack minH={"container.md"}>
+      {!isNewMsg &&
+        convoMessages?.map((msg: DecodedMessage) => {
+          return (
+            <OneMessage
+              msg={msg}
+              key={msg.id}
+              position={msg.senderAddress === walletAddress}
+            />
+          );
+        })}
+      {isNewMsg &&
+        convoMessages?.map((msg: DecodedMessage) => {
+          return (
+            <OneMessage
+              msg={msg}
+              key={msg.id}
+              position={msg.senderAddress === walletAddress}
+            />
+          );
+        })}
     </VStack>
   );
 };
