@@ -15,8 +15,9 @@ function MessageCard(props: MessageCardProps) {
       p={4}
       borderColor={"gray.600"}
       borderRadius={4}
-          borderWidth={2}
-           onClick={() => setSelectedChat(address)}
+      borderWidth={2}
+      my={2}
+      onClick={() => setSelectedChat(address)}
     >
       <Avatar src="https://avatars.dicebear.com/api/human/450.svg" />
       <VStack justifyContent={"flex-start"} alignItems="flex-start">

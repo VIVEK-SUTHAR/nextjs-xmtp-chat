@@ -141,12 +141,12 @@ function Home() {
                   isNewMessage={isNewMessage}
                   onInputBlur={onInputBlur}
                   errorMessage={errorMessage}
-                    selectedChat={selectedChat}
-                    isValid={isValidAddress}
+                  selectedChat={selectedChat}
+                  isValid={isValidAddress}
                 />
               </Box>
               <Box
-                maxH={["container.md","container.lg"]}
+                maxH={["container.md", "container.lg"]}
                 overflowY={"scroll"}
                 overflowX={"hidden"}
                 padding={4}

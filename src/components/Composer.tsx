@@ -16,41 +16,40 @@ const Composer = ({
 }: ComposerProps) => {
   const toast = useToast();
   return (
-    <HStack>
-     
-        <Input
-          onChange={(e) => {
-            e.preventDefault();
-            setMsgTxt(e.target.value);
-          }}
-          placeholder="Write a message"
+    <HStack my={2}>
+      <Input
+        onChange={(e) => {
+          e.preventDefault();
+          setMsgTxt(e.target.value);
+        }}
+        placeholder="Write a message"
         value={msgText}
-        onKeyUp={e => {
+        onKeyUp={(e) => {
           if (e.key === "Enter") {
-            sendNewMessage()
+            sendNewMessage();
           }
         }}
-        />
-        <Button
-          type="submit"
-          className="btn"
-          onClick={() => {
-            if (errorMessage || !msgText) {
-              toast({
-                position: "top",
-                title: errorMessage ? errorMessage : "Please type something",
-                status: "error",
-                colorScheme: "red",
-                duration: 2000,
-              });
-              return;
-            }
+      />
+      <Button
+        type="submit"
+        className="btn"
+        onClick={() => {
+          if (errorMessage || !msgText) {
+            toast({
+              position: "top",
+              title: errorMessage ? errorMessage : "Please type something",
+              status: "error",
+              colorScheme: "red",
+              duration: 2000,
+            });
+            return;
+          }
 
-            sendNewMessage();
-          }}
-        >
-          Send
-        </Button>
+          sendNewMessage();
+        }}
+      >
+        Send
+      </Button>
     </HStack>
   );
 };
